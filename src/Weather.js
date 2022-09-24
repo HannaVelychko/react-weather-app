@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
 import "./Weather.css";
 
 export default function Weather(props) {
@@ -11,6 +12,7 @@ export default function Weather(props) {
     console.log(response.data);
     setWeatherData({
       ready: true,
+      coordinates: response.data.coord,
       temperature: response.data.main.temp,
       pressure: response.data.main.pressure,
       humidity: response.data.main.humidity,
@@ -49,6 +51,7 @@ export default function Weather(props) {
                 placeholder="Enter a city.."
                 className="form-control"
                 autoFocus="on"
+                autoComplete="on"
                 onChange={handleCityChange}
               />
             </div>
@@ -62,6 +65,7 @@ export default function Weather(props) {
           </div>
         </form>
         <WeatherInfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
   } else {
